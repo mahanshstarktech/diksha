@@ -8,7 +8,7 @@ import { DaySelectSection } from './sections/DaySelectSection';
 import { FoodSection } from './sections/FoodSection';
 import { SignOffSection } from './sections/SignOffSection';
 import { useSmootScroll, scrollToSection } from './hooks/useScrollSections';
-import { fireEvent } from './lib/notifications';
+import { fireEvent, fireVisitEvent } from './lib/notifications';
 import type { AppState, AppAction } from './lib/stateTypes';
 
 // ─── Reducer ──────────────────────────────────────────────────────────────────
@@ -64,12 +64,20 @@ const FOOD_LABELS: Record<string, string> = {
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const lenisRef = useSmootScroll();
+  const visitNotifiedRef  = useRef(false);
   const answerNotifiedRef = useRef(false);
   const dayNotifiedRef    = useRef(false);
   const foodNotifiedRef   = useRef(false);
   const allDoneNotifiedRef = useRef(false);
 
   const { phase, noCount, dayChoice, foodChoice } = state;
+
+  // ── Notify: page opened ──────────────────────────────────────────────────
+  useEffect(() => {
+    if (visitNotifiedRef.current) return;
+    visitNotifiedRef.current = true;
+    void fireVisitEvent();
+  }, []);
 
   // ── Scroll on phase change ───────────────────────────────────────────────
   useEffect(() => {
