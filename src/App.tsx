@@ -123,7 +123,7 @@ function App() {
 
         {/* ── Hero ─────────────────────────────────────────────────── */}
         <HeroSection
-          onScrollHintClick={() => scrollToSection('section-date-idea', lenisRef.current)}
+          onScrollHintClick={() => scrollToSection('section-ask', lenisRef.current)}
         />
 
         {/* ── Date Idea + Ask / Pivot ──────────────────────────────── */}
