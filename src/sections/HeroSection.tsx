@@ -54,7 +54,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onScrollHintClick }) =
             lineHeight: 1.55,
           }}
         >
-          The prettiest girl I know.
+          The moon is beautiful, isn&apos;t it?
         </motion.p>
 
         {/* Decorative line */}

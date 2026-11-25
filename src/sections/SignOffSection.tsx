@@ -95,12 +95,10 @@ export const SignOffSection: React.FC<SignOffSectionProps> = ({
               }}
             >
               <p style={{ marginBottom: '0.7rem' }}>
-                Every adventure is better with you.
+                Why explain the light?
               </p>
               <p style={{ marginBottom: '0.7rem' }}>
-                I can already picture us at the top,
-                <br />
-                looking at the city together. 🌄
+                It simply falls.
               </p>
               <p style={{ fontWeight: 600, color: '#4a2d7a' }}>
                 Thank you for saying yes.

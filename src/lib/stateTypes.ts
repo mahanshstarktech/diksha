@@ -26,7 +26,7 @@ export type CatMood =
 
 export const TREK_DATE_LABEL = 'Sunday, Nov 29';
 export const TREK_TIME_LABEL = 'Sunday Morning · Nov 29';
-export const TREK_LOCATION = 'Twin Towers, Galta Ji';
+export const TREK_LOCATION = 'Somewhere secret 🐱🤫';
 
 export interface AppState {
   phase: Phase;

@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { CatCharacter } from '../components/CatCharacter';
 import { ConfettiEffect } from '../components/ConfettiEffect';
 import { ScrollHint } from '../components/ScrollHint';
-import { TREK_DATE_LABEL, TREK_LOCATION } from '../lib/stateTypes';
+import { TREK_DATE_LABEL } from '../lib/stateTypes';
 
 interface CelebrationSectionProps {
   active: boolean;
@@ -70,7 +70,7 @@ export const CelebrationSection: React.FC<CelebrationSectionProps> = ({
             marginBottom: '2rem',
           }}
         >
-          {TREK_LOCATION} — let&apos;s go make a memory. 🌄🐾
+          The destination&apos;s a little secret for now — let&apos;s go make a memory. 🐱🤫
         </motion.p>
 
         {/* Continue button */}

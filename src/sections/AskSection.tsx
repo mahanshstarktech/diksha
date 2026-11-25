@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { CatCharacter } from '../components/CatCharacter';
 import { PawButton } from '../components/PawButton';
 import { GlassCard } from '../components/GlassCard';
-import { ASK_STAGES, TREK_LOCATION, TREK_TIME_LABEL } from '../lib/stateTypes';
+import { ASK_STAGES, TREK_TIME_LABEL } from '../lib/stateTypes';
 import type { AppState } from '../lib/stateTypes';
 
 interface AskSectionProps {
@@ -92,7 +92,7 @@ export const AskSection: React.FC<AskSectionProps> = ({
               />
 
               <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.9rem' }}>
-                <span style={{ fontSize: '2rem', flexShrink: 0, marginTop: 2 }}>🏔️</span>
+                <span style={{ fontSize: '2rem', flexShrink: 0, marginTop: 2 }}>🤫</span>
                 <div>
                   <h2 style={{
                     fontSize: '1.1rem',
@@ -101,16 +101,15 @@ export const AskSection: React.FC<AskSectionProps> = ({
                     marginBottom: '0.3rem',
                     letterSpacing: '-0.01em',
                   }}>
-                    {TREK_LOCATION}
+                    Where? That&apos;s a secret 🐱🤫
                   </h2>
                   <p style={{
                     fontSize: '0.9rem',
                     lineHeight: 1.6,
                     color: '#5a4a7a',
                   }}>
-                    An easy-to-moderate trail through the Aravalli hills starting from
-                    Galta Gate (near the Monkey Temple), about 10 km from central Jaipur.
-                    Panoramic city views, best in cool mornings. ☀️🌿
+                    I&apos;m keeping the trail spot a little surprise for now — just bring
+                    good energy and trust me on this one. 🐾✨
                   </p>
                 </div>
               </div>
