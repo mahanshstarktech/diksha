@@ -303,7 +303,7 @@ export function fireEvent(params: {
   if (params.answer === 'yes') {
     tgText = `🐾 <b>Diksha said YES!</b> (${noStr})\n📅 Sunday, Nov 29\n🕐 ${ts}`;
   } else if (params.answer === 'no-final') {
-    tgText = `😔 Diksha said no to the trek (${noStr})\n📅 ${ts}`;
+    tgText = `💭 Diksha wants to do something else instead of the trek (${noStr})\n📅 ${ts}`;
   } else if (params.answer === 'trek-exp' && params.trekExpChoice) {
     tgText = `🥾 <b>Diksha's trek experience:</b> ${escapeHtml(params.trekExpChoice)}\n🕐 ${ts}`;
   } else if (params.answer === 'all-done') {

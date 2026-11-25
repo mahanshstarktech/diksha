@@ -43,7 +43,7 @@ export const SignOffSection: React.FC<SignOffSectionProps> = ({
                 marginBottom: '0.75rem',
               }}
             >
-              No worries at all 🐾
+              Fair enough! 🐾
             </motion.h2>
             <motion.p
               initial={{ opacity: 0, y: 12 }}
@@ -57,7 +57,7 @@ export const SignOffSection: React.FC<SignOffSectionProps> = ({
                 marginBottom: '2rem',
               }}
             >
-              Thanks for humoring me. The offer stands whenever you&apos;re up for it — no pressure, ever. 💜
+              Trekking isn&apos;t the only plan — tell me what sounds fun to you and we&apos;ll do something else instead. 💜
             </motion.p>
           </>
         ) : (

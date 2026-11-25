@@ -51,6 +51,21 @@ const VARIANT_STYLES = {
   },
 };
 
+function splitLabelLines(label: string): string[] {
+  if (label.includes('\n')) {
+    return label.split('\n');
+  }
+  if (label.length <= 10) {
+    return [label];
+  }
+  const words = label.split(' ');
+  if (words.length <= 1) {
+    return [label];
+  }
+  const mid = Math.ceil(words.length / 2);
+  return [words.slice(0, mid).join(' '), words.slice(mid).join(' ')];
+}
+
 /**
  * Cohesive scalloped cat-paw SVG button inspired by the reference paw shape,
  * styled to match the site's lavender/purple/glass theme.
@@ -66,14 +81,17 @@ export const PawButton: React.FC<PawButtonProps> = ({
 }) => {
   const v = VARIANT_STYLES[variant];
   const uid = React.useId().replaceAll(':', '');
+  const lines = splitLabelLines(label);
+  const isMultiline = lines.length > 1;
 
-  // Keep proportions faithful to reference paw while allowing wider buttons for long pivot labels
+  // Keep proportions faithful to reference paw while allowing slightly wider buttons for multi-word labels
   const renderWidth = Math.round(
-    (width > 165 ? Math.min(width * 0.86, 178) : 136) * (scale > 1 ? Math.min(scale, 1.48) : 1),
+    (width > 165 ? Math.min(width * 0.88, 182) : 136) * (scale > 1 ? Math.min(scale, 1.48) : 1),
   );
   const renderHeight = Math.round(renderWidth * (158 / 200));
   const visualScale = scale < 1 ? scale : 1;
-  const fontSize = label.length > 10 ? 13 : 18.5;
+  const maxLineLen = Math.max(...lines.map(l => l.length));
+  const fontSize = isMultiline ? (maxLineLen > 12 ? 11.5 : 13) : 18.5;
 
   return (
     <div
@@ -88,7 +106,7 @@ export const PawButton: React.FC<PawButtonProps> = ({
       }}
       onClick={disabled ? undefined : onClick}
       role="button"
-      aria-label={label}
+      aria-label={label.replaceAll('\n', ' ')}
       id={id}
       tabIndex={0}
       onKeyDown={(e) => { if (!disabled && (e.key === 'Enter' || e.key === ' ')) onClick(); }}
@@ -184,16 +202,16 @@ export const PawButton: React.FC<PawButtonProps> = ({
             <path d="M 160,60 Q 169,62 171,72" fill="none" stroke={v.gloss} strokeWidth="2.5" strokeLinecap="round" />
           </g>
 
-          {/* Wide heart-dome main paw pad */}
+          {/* Wide heart-dome main paw pad (extra wide horizontally for clean text fit) */}
           <path
             d="
-              M 100,66
-              C 122,66 138,83 152,102
-              C 163,118 156,136 133,138
-              C 118,139 109,131 100,131
-              C 91,131 82,139 67,138
-              C 44,136 37,118 48,102
-              C 62,83 78,66 100,66
+              M 100,65
+              C 126,65 144,82 158,103
+              C 169,120 160,138 134,139
+              C 119,140 109,132 100,132
+              C 91,132 81,140 66,139
+              C 40,138 31,120 42,103
+              C 56,82 74,65 100,65
               Z
             "
             fill={`url(#paw-pad-${uid})`}
@@ -204,17 +222,17 @@ export const PawButton: React.FC<PawButtonProps> = ({
 
           {/* Soft upper gloss arc on main pad */}
           <path
-            d="M 105,74 Q 124,78 138,98"
+            d="M 106,73 Q 127,77 143,97"
             fill="none"
             stroke={v.gloss}
             strokeWidth="3.2"
             strokeLinecap="round"
           />
 
-          {/* Button label centered cleanly inside main pad */}
+          {/* Button label centered cleanly inside main pad (1 or 2 lines) */}
           <text
             x="100"
-            y="108"
+            y={isMultiline ? '100' : '109'}
             textAnchor="middle"
             dominantBaseline="middle"
             fill={v.text}
@@ -223,7 +241,11 @@ export const PawButton: React.FC<PawButtonProps> = ({
             fontWeight="700"
             style={{ pointerEvents: 'none', userSelect: 'none' }}
           >
-            {label}
+            {lines.map((line, i) => (
+              <tspan key={i} x="100" dy={i === 0 ? 0 : '1.25em'}>
+                {line}
+              </tspan>
+            ))}
           </text>
         </svg>
       </motion.div>

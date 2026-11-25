@@ -4,7 +4,6 @@ import { CatCharacter } from '../components/CatCharacter';
 import { PawButton } from '../components/PawButton';
 import { GlassCard } from '../components/GlassCard';
 import { SecretCatIcon } from '../components/SecretCatIcon';
-import { ScrollHint } from '../components/ScrollHint';
 import { ASK_STAGES, TREK_TIME_LABEL } from '../lib/stateTypes';
 import type { AppState } from '../lib/stateTypes';
 
@@ -128,15 +127,6 @@ export const AskSection: React.FC<AskSectionProps> = ({
               </div>
             </div>
           </GlassCard>
-
-          {/* Hovering down arrow right after Date Idea card */}
-          <ScrollHint
-            delay={0.4}
-            label="Scroll to question"
-            onClick={() => {
-              document.getElementById('ask-card')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }}
-          />
         </motion.div>
 
         {/* Main interaction card */}
@@ -180,19 +170,19 @@ export const AskSection: React.FC<AskSectionProps> = ({
               <>
                 <PawButton
                   id="btn-pivot-yes"
-                  label="Yes, sometime 🌄"
+                  label={'Yes,\nsometime 🌄'}
                   variant="yes"
                   onClick={onPivotYes}
                   scale={1.0}
-                  width={210}
+                  width={185}
                 />
                 <PawButton
                   id="btn-pivot-no"
-                  label="No, not really"
+                  label={'How about\nsomething else?'}
                   variant="no"
                   onClick={onPivotNo}
                   scale={1.0}
-                  width={180}
+                  width={185}
                 />
               </>
             ) : (
