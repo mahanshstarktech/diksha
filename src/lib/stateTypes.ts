@@ -11,15 +11,17 @@ export type Phase =
   | 'signoff';  // final screen
 
 export type CatMood =
+  | 'normal'
+  | 'concerned'
+  | 'pleading'
+  | 'hurt'
+  | 'sad'
+  | 'very-sad'
   | 'happy'
   | 'content'
   | 'curious'
   | 'hungry'
   | 'excited'
-  | 'small-smile'
-  | 'neutral'
-  | 'sad'
-  | 'very-sad'
   | 'dance';
 
 export const TREK_DATE_LABEL = 'Sunday, Nov 29';
@@ -56,25 +58,25 @@ export interface AskStageConfig {
 export const ASK_STAGES: AskStageConfig[] = [
   {
     question: 'Would you like to go on a trek with me? 🐾',
-    mood: 'happy',
+    mood: 'normal',
     noScale: 1.0,
     yesScale: 1.0,
   },
   {
     question: 'Please? 🥺',
-    mood: 'content',
+    mood: 'concerned',
     noScale: 0.88,
     yesScale: 1.08,
   },
   {
     question: 'Pleaseee? Just this Sunday? 🐱💭',
-    mood: 'small-smile',
+    mood: 'pleading',
     noScale: 0.76,
     yesScale: 1.16,
   },
   {
     question: 'Please please please? 🥹',
-    mood: 'neutral',
+    mood: 'hurt',
     noScale: 0.64,
     yesScale: 1.24,
   },
