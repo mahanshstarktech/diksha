@@ -93,18 +93,15 @@ export const TREK_EXP_OPTIONS = [
     id: 'experienced',
     emoji: '🏔️',
     label: "Yes, I've been on treks before!",
-    reply: "Ooh, a trail pro! You get to set the pace then 😄🐾",
   },
   {
     id: 'few-times',
     emoji: '🌿',
     label: 'Once or twice, a little bit',
-    reply: "Perfect — this trail is super scenic and easygoing 🐾",
   },
   {
     id: 'first-time',
     emoji: '🌱',
     label: 'Nope, this will be my first!',
-    reply: "Even better — I'll make sure your first trek is unforgettable 💗🐾",
   },
 ];

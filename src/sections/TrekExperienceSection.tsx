@@ -1,5 +1,4 @@
-import { motion, AnimatePresence } from 'framer-motion';
-import { GlassCard } from '../components/GlassCard';
+import { motion } from 'framer-motion';
 import { CatCharacter } from '../components/CatCharacter';
 import { ScrollHint } from '../components/ScrollHint';
 import { TREK_EXP_OPTIONS, TREK_DATE_LABEL } from '../lib/stateTypes';
@@ -13,8 +12,6 @@ export const TrekExperienceSection: React.FC<TrekExperienceSectionProps> = ({
   trekExpChoice,
   onSelect,
 }) => {
-  const matchedOption = TREK_EXP_OPTIONS.find(opt => opt.label === trekExpChoice);
-
   return (
     <section
       id="section-trek-exp"
@@ -138,30 +135,6 @@ export const TrekExperienceSection: React.FC<TrekExperienceSectionProps> = ({
             );
           })}
         </div>
-
-        {/* Confirmation message */}
-        <AnimatePresence>
-          {matchedOption && (
-            <motion.div
-              key="trek-exp-confirm"
-              initial={{ opacity: 0, y: 10, scale: 0.95 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ type: 'spring', stiffness: 260, damping: 20 }}
-            >
-              <GlassCard style={{ textAlign: 'center', padding: '1rem 1.4rem' }}>
-                <p style={{
-                  fontSize: 'clamp(0.9rem, 3.5vw, 1rem)',
-                  fontWeight: 600,
-                  color: '#4a2d7a',
-                  lineHeight: 1.5,
-                }}>
-                  {matchedOption.reply}
-                </p>
-              </GlassCard>
-            </motion.div>
-          )}
-        </AnimatePresence>
 
         {/* Hovering down arrow — jumps to options before choice, or to sign-off after choice */}
         <ScrollHint
