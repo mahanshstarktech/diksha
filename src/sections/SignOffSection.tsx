@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { CatCharacter } from '../components/CatCharacter';
+import { SecretCatIcon } from '../components/SecretCatIcon';
 import { TREK_DATE_LABEL, TREK_LOCATION } from '../lib/stateTypes';
 import type { Phase } from '../lib/stateTypes';
 
@@ -23,8 +24,8 @@ export const SignOffSection: React.FC<SignOffSectionProps> = ({
       <div style={{ textAlign: 'center', maxWidth: 480, width: '100%' }}>
 
         {/* Cat */}
-        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '0.85rem' }}>
-          <CatCharacter mood={isNoFinal ? 'content' : 'happy'} size={245} />
+        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '0.6rem' }}>
+          <CatCharacter mood={isNoFinal ? 'content' : 'happy'} size={205} />
         </div>
 
         {isNoFinal ? (
@@ -123,7 +124,7 @@ export const SignOffSection: React.FC<SignOffSectionProps> = ({
                 lineHeight: 1.7,
               }}>
                 📅 <strong>{TREK_DATE_LABEL} · Morning</strong>
-                <br />📍 {TREK_LOCATION}
+                <br />📍 {TREK_LOCATION} <SecretCatIcon size={18} />
                 {trekExpChoice && (
                   <><br />🥾 <strong>{trekExpChoice}</strong></>
                 )}
@@ -159,8 +160,7 @@ export const SignOffSection: React.FC<SignOffSectionProps> = ({
         viewport={{ once: true }}
         transition={{ delay: 0.8, duration: 1 }}
         style={{
-          position: 'absolute',
-          bottom: '1.5rem',
+          marginTop: '1.5rem',
           fontSize: '0.75rem',
           color: '#8a7a9a',
           letterSpacing: '0.02em',

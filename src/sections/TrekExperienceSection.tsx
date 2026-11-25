@@ -24,8 +24,8 @@ export const TrekExperienceSection: React.FC<TrekExperienceSectionProps> = ({
       <div style={{ width: '100%', maxWidth: 560, textAlign: 'center' }}>
 
         {/* Curious cat */}
-        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '0.75rem' }}>
-          <CatCharacter mood={trekExpChoice ? 'happy' : 'curious'} size={215} />
+        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '0.5rem' }}>
+          <CatCharacter mood={trekExpChoice ? 'happy' : 'curious'} size={185} />
         </div>
 
         {/* Heading */}

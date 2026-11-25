@@ -75,7 +75,7 @@ function App() {
     };
     const target = targets[phase];
     if (target) {
-      setTimeout(() => scrollToSection(target, lenisRef.current), 350);
+      setTimeout(() => scrollToSection(target, lenisRef.current), 260);
     }
   }, [phase]);
 
@@ -123,13 +123,13 @@ function App() {
 
         {/* ── Hero ─────────────────────────────────────────────────── */}
         <HeroSection
-          onScrollHintClick={() => scrollToSection('section-ask', lenisRef.current)}
+          onScrollHintClick={() => scrollToSection('section-date-idea', lenisRef.current)}
         />
 
-        {/* ── Ask / Pivot ──────────────────────────────────────────── */}
+        {/* ── Date Idea + Ask / Pivot ──────────────────────────────── */}
         <AnimatePresence>
           {showAsk && (
-            <motion.div key="ask" exit={{ opacity: 0, y: -30 }} transition={{ duration: 0.4 }}>
+            <motion.div key="ask" exit={{ opacity: 0, y: -20 }} transition={{ duration: 0.2 }}>
               <AskSection
                 state={state}
                 onYes={() => dispatch({ type: 'CLICK_YES' })}

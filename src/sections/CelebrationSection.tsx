@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { CatCharacter } from '../components/CatCharacter';
 import { ConfettiEffect } from '../components/ConfettiEffect';
 import { ScrollHint } from '../components/ScrollHint';
+import { SecretCatIcon } from '../components/SecretCatIcon';
 import { TREK_DATE_LABEL } from '../lib/stateTypes';
 
 interface CelebrationSectionProps {
@@ -23,9 +24,9 @@ export const CelebrationSection: React.FC<CelebrationSectionProps> = ({
 
       <div style={{ textAlign: 'center', maxWidth: 520, width: '100%', padding: '0 1rem' }}>
 
-        {/* Dancing bongo cat */}
-        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '0.75rem' }}>
-          <CatCharacter mood="dance" size={265} />
+        {/* Dancing cat */}
+        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '0.5rem' }}>
+          <CatCharacter mood="dance" size={230} />
         </div>
 
         {/* Celebration heading */}
@@ -70,7 +71,8 @@ export const CelebrationSection: React.FC<CelebrationSectionProps> = ({
             marginBottom: '2rem',
           }}
         >
-          The destination&apos;s a little secret for now — let&apos;s give the future something to look back on. 🐱🤫
+          The destination&apos;s a little secret for now — let&apos;s give the future something to look back on.{' '}
+          <SecretCatIcon size={20} />
         </motion.p>
 
         {/* Continue button */}
