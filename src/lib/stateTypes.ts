@@ -5,8 +5,6 @@ export type Phase =
   | 'pivot'     // 6th decline → "some other time?"
   | 'yes'       // celebration
   | 'trek-exp'  // have you been on a trek before?
-  | 'food'      // what snacks should I pack?
-  | 'post-food' // what would you like to eat after the trek?
   | 'no-final'  // pivot declined → warm close
   | 'signoff';  // final screen
 
@@ -32,8 +30,6 @@ export interface AppState {
   phase: Phase;
   noCount: number;
   trekExpChoice: string | null;
-  foodChoice: string | null;
-  postFoodChoice: string | null;
 }
 
 export type AppAction =
@@ -42,9 +38,7 @@ export type AppAction =
   | { type: 'CLICK_PIVOT_YES' }
   | { type: 'CLICK_PIVOT_NO' }
   | { type: 'GO_TO_TREK_EXP' }
-  | { type: 'SELECT_TREK_EXP'; choice: string }
-  | { type: 'SELECT_FOOD'; choice: string }
-  | { type: 'SELECT_POST_FOOD'; choice: string };
+  | { type: 'SELECT_TREK_EXP'; choice: string };
 
 // ─── State Progression Table ──────────────────────────────────────────────────
 
@@ -113,11 +107,4 @@ export const TREK_EXP_OPTIONS = [
     label: 'Nope, this will be my first!',
     reply: "Even better — I'll make sure your first trek is unforgettable 💗🐾",
   },
-];
-
-export const FOOD_OPTIONS = [
-  { id: 'club-coffee', emoji: '🥪', label: 'Club Sandwich & Iced Coffee' },
-  { id: 'croissant-cocoa', emoji: '🥐', label: 'Warm Croissants & Hot Chocolate' },
-  { id: 'fruit-granola', emoji: '🍓', label: 'Fresh Fruit, Nuts & Energy Bites' },
-  { id: 'maggi-chai', emoji: '🍜', label: 'Steaming Maggi & Masala Chai' },
 ];

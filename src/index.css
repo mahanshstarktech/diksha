@@ -221,21 +221,6 @@ body {
   min-height: 44px;
 }
 
-/* ── Food option card ────────────────────────────────────────── */
-.food-card {
-  cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.food-card:hover {
-  transform: translateY(-4px) scale(1.03);
-}
-
-.food-card.selected {
-  border-color: rgba(168, 85, 247, 0.6) !important;
-  background: rgba(168, 85, 247, 0.12) !important;
-}
-
 /* ── Reduced motion ──────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   .gradient-text {

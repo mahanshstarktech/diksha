@@ -98,7 +98,7 @@ export const CelebrationSection: React.FC<CelebrationSectionProps> = ({
           }}
           id="btn-continue-to-questions"
         >
-          Just a couple quick questions... 🐾
+          Just one quick question... 🐾
         </motion.button>
 
         {/* Scroll hint */}

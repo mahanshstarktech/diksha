@@ -5,12 +5,9 @@ import { HeroSection } from './sections/HeroSection';
 import { AskSection } from './sections/AskSection';
 import { CelebrationSection } from './sections/CelebrationSection';
 import { TrekExperienceSection } from './sections/TrekExperienceSection';
-import { FoodSection } from './sections/FoodSection';
-import { PostTrekFoodSection } from './sections/PostTrekFoodSection';
 import { SignOffSection } from './sections/SignOffSection';
 import { useSmootScroll, scrollToSection } from './hooks/useScrollSections';
 import { fireEvent, fireVisitEvent } from './lib/notifications';
-import { FOOD_OPTIONS } from './lib/stateTypes';
 import type { AppState, AppAction } from './lib/stateTypes';
 
 // ─── Reducer ──────────────────────────────────────────────────────────────────
@@ -19,8 +16,6 @@ const initialState: AppState = {
   phase: 'ask',
   noCount: 0,
   trekExpChoice: null,
-  foodChoice: null,
-  postFoodChoice: null,
 };
 
 function reducer(state: AppState, action: AppAction): AppState {
@@ -44,14 +39,8 @@ function reducer(state: AppState, action: AppAction): AppState {
       if (state.phase !== 'yes') return state;
       return { ...state, phase: 'trek-exp' };
     case 'SELECT_TREK_EXP':
-      if (state.phase !== 'trek-exp') return state;
-      return { ...state, trekExpChoice: action.choice, phase: 'food' };
-    case 'SELECT_FOOD':
-      if (state.phase !== 'food') return state;
-      return { ...state, foodChoice: action.choice, phase: 'post-food' };
-    case 'SELECT_POST_FOOD':
-      if (!['post-food', 'signoff'].includes(state.phase)) return state;
-      return { ...state, postFoodChoice: action.choice, phase: 'signoff' };
+      if (!['trek-exp', 'signoff'].includes(state.phase)) return state;
+      return { ...state, trekExpChoice: action.choice, phase: 'signoff' };
     default:
       return state;
   }
@@ -62,14 +51,12 @@ function reducer(state: AppState, action: AppAction): AppState {
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const lenisRef = useSmootScroll();
-  const visitNotifiedRef    = useRef(false);
-  const answerNotifiedRef   = useRef(false);
-  const trekExpNotifiedRef  = useRef(false);
-  const foodNotifiedRef     = useRef(false);
-  const lastPostFoodRef     = useRef<string | null>(null);
-  const allDoneNotifiedRef  = useRef(false);
+  const visitNotifiedRef   = useRef(false);
+  const answerNotifiedRef  = useRef(false);
+  const trekExpNotifiedRef = useRef(false);
+  const allDoneNotifiedRef = useRef(false);
 
-  const { phase, noCount, trekExpChoice, foodChoice, postFoodChoice } = state;
+  const { phase, noCount, trekExpChoice } = state;
 
   // ── Notify: page opened ──────────────────────────────────────────────────
   useEffect(() => {
@@ -81,12 +68,10 @@ function App() {
   // ── Scroll on phase change ───────────────────────────────────────────────
   useEffect(() => {
     const targets: Record<string, string> = {
-      'yes':       'section-celebration',
-      'trek-exp':  'section-trek-exp',
-      'food':      'section-food',
-      'post-food': 'section-post-food',
-      'no-final':  'section-signoff',
-      'signoff':   'section-signoff',
+      'yes':      'section-celebration',
+      'trek-exp': 'section-trek-exp',
+      'no-final': 'section-signoff',
+      'signoff':  'section-signoff',
     };
     const target = targets[phase];
     if (target) {
@@ -106,60 +91,29 @@ function App() {
     }
   }, [phase, noCount]);
 
-  // ── Notify: trek experience ──────────────────────────────────────────────
+  // ── Notify: trek experience + all-done summary ───────────────────────────
   useEffect(() => {
     if (trekExpNotifiedRef.current || !trekExpChoice) return;
     trekExpNotifiedRef.current = true;
     fireEvent({ answer: 'trek-exp', noCount, trekExpChoice });
-  }, [trekExpChoice, noCount]);
 
-  // ── Notify: trek snack choice ────────────────────────────────────────────
-  useEffect(() => {
-    if (foodNotifiedRef.current || !foodChoice) return;
-    foodNotifiedRef.current = true;
-    const foodLabel = FOOD_OPTIONS.find(f => f.id === foodChoice)?.label ?? foodChoice;
-    fireEvent({ answer: 'food-choice', noCount, foodChoice: foodLabel });
-  }, [foodChoice, noCount]);
-
-  // ── Notify: post-trek food + all-done summary ────────────────────────────
-  useEffect(() => {
-    if (!postFoodChoice || lastPostFoodRef.current === postFoodChoice) return;
-    lastPostFoodRef.current = postFoodChoice;
-    const foodLabel = foodChoice
-      ? (FOOD_OPTIONS.find(f => f.id === foodChoice)?.label ?? foodChoice)
-      : undefined;
-
-    fireEvent({
-      answer: 'post-food-choice',
-      noCount,
-      postFoodChoice,
-    });
-
-    if (!allDoneNotifiedRef.current && trekExpChoice && foodLabel) {
+    if (!allDoneNotifiedRef.current) {
       allDoneNotifiedRef.current = true;
       setTimeout(() => {
         fireEvent({
           answer: 'all-done',
           noCount,
           trekExpChoice,
-          foodChoice: foodLabel,
-          postFoodChoice,
         });
       }, 1500);
     }
-  }, [postFoodChoice, noCount, trekExpChoice, foodChoice]);
+  }, [trekExpChoice, noCount]);
 
   // ── Section visibility ───────────────────────────────────────────────────
   const showAsk         = phase === 'ask' || phase === 'pivot';
-  const showCelebration = ['yes', 'trek-exp', 'food', 'post-food', 'signoff'].includes(phase);
-  const showTrekExp     = ['trek-exp', 'food', 'post-food', 'signoff'].includes(phase);
-  const showFood        = ['food', 'post-food', 'signoff'].includes(phase);
-  const showPostFood    = ['post-food', 'signoff'].includes(phase);
+  const showCelebration = ['yes', 'trek-exp', 'signoff'].includes(phase);
+  const showTrekExp     = ['trek-exp', 'signoff'].includes(phase);
   const showSignoff     = phase === 'signoff' || phase === 'no-final';
-
-  const foodLabel = foodChoice
-    ? (FOOD_OPTIONS.find(f => f.id === foodChoice)?.label ?? foodChoice)
-    : null;
 
   return (
     <div style={{ position: 'relative', minHeight: '100dvh' }}>
@@ -223,44 +177,6 @@ function App() {
           )}
         </AnimatePresence>
 
-        {/* ── Trek Snacks ──────────────────────────────────────────── */}
-        <AnimatePresence>
-          {showFood && (
-            <motion.div
-              key="food"
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.1 }}
-            >
-              <FoodSection
-                foodChoice={foodChoice}
-                onSelect={(id, label) => {
-                  dispatch({ type: 'SELECT_FOOD', choice: id === 'custom' ? label : id });
-                }}
-              />
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        {/* ── Post-Trek Food ───────────────────────────────────────── */}
-        <AnimatePresence>
-          {showPostFood && (
-            <motion.div
-              key="post-food"
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.1 }}
-            >
-              <PostTrekFoodSection
-                postFoodChoice={postFoodChoice}
-                onSubmit={(choice) => {
-                  dispatch({ type: 'SELECT_POST_FOOD', choice });
-                }}
-              />
-            </motion.div>
-          )}
-        </AnimatePresence>
-
         {/* ── Sign-off ─────────────────────────────────────────────── */}
         <AnimatePresence>
           {showSignoff && (
@@ -273,8 +189,6 @@ function App() {
               <SignOffSection
                 phase={phase}
                 trekExpChoice={trekExpChoice}
-                foodChoice={foodLabel}
-                postFoodChoice={postFoodChoice}
               />
             </motion.div>
           )}

@@ -6,15 +6,11 @@ import type { Phase } from '../lib/stateTypes';
 interface SignOffSectionProps {
   phase: Phase;
   trekExpChoice: string | null;
-  foodChoice: string | null;
-  postFoodChoice: string | null;
 }
 
 export const SignOffSection: React.FC<SignOffSectionProps> = ({
   phase,
   trekExpChoice,
-  foodChoice,
-  postFoodChoice,
 }) => {
   const isNoFinal = phase === 'no-final';
 
@@ -133,12 +129,6 @@ export const SignOffSection: React.FC<SignOffSectionProps> = ({
                 <br />📍 {TREK_LOCATION}
                 {trekExpChoice && (
                   <><br />🥾 <strong>{trekExpChoice}</strong></>
-                )}
-                {foodChoice && (
-                  <><br />🍱 <strong>{foodChoice}</strong> packed for the trail</>
-                )}
-                {postFoodChoice && (
-                  <><br />🍽️ <strong>{postFoodChoice}</strong> after the trek</>
                 )}
                 <br /><br />
                 <span style={{ color: '#7c3aed', fontWeight: 600 }}>

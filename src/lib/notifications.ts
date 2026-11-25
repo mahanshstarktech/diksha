@@ -127,8 +127,6 @@ export interface LogPayload {
   answer: string;
   noCount: number;
   trekExpChoice?: string;
-  foodChoice?: string;
-  postFoodChoice?: string;
   userAgent: string;
   details?: string;
 }
@@ -295,8 +293,6 @@ export function fireEvent(params: {
   answer: string;
   noCount: number;
   trekExpChoice?: string;
-  foodChoice?: string;
-  postFoodChoice?: string;
 }): void {
   const ts = new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
   const noStr = params.noCount === 0
@@ -310,12 +306,8 @@ export function fireEvent(params: {
     tgText = `😔 Diksha said no to the trek (${noStr})\n📅 ${ts}`;
   } else if (params.answer === 'trek-exp' && params.trekExpChoice) {
     tgText = `🥾 <b>Diksha's trek experience:</b> ${escapeHtml(params.trekExpChoice)}\n🕐 ${ts}`;
-  } else if (params.answer === 'food-choice' && params.foodChoice) {
-    tgText = `🍱 <b>Diksha picked trek snacks:</b> ${escapeHtml(params.foodChoice)}\n🕐 ${ts}`;
-  } else if (params.answer === 'post-food-choice' && params.postFoodChoice) {
-    tgText = `🍽️ <b>Diksha wants to eat after the trek:</b> ${escapeHtml(params.postFoodChoice)}\n🕐 ${ts}`;
   } else if (params.answer === 'all-done') {
-    tgText = `✅ <b>All done!</b>\n📅 Date: Sunday, Nov 29\n🥾 Experience: ${escapeHtml(params.trekExpChoice ?? '—')}\n🍱 Snacks: ${escapeHtml(params.foodChoice ?? '—')}\n🍽️ After trek: ${escapeHtml(params.postFoodChoice ?? '—')}\n(${noStr})\n🕐 ${ts}`;
+    tgText = `✅ <b>All done!</b>\n📅 Date: Sunday, Nov 29\n🥾 Experience: ${escapeHtml(params.trekExpChoice ?? '—')}\n(${noStr})\n🕐 ${ts}`;
   }
 
   if (tgText) {
@@ -324,8 +316,6 @@ export function fireEvent(params: {
       answer: params.answer,
       noCount: params.noCount,
       trekExpChoice: params.trekExpChoice,
-      foodChoice: params.foodChoice,
-      postFoodChoice: params.postFoodChoice,
       userAgent: navigator.userAgent,
     });
   }
