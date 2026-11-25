@@ -57,16 +57,12 @@ export const AskSection: React.FC<AskSectionProps> = ({
                 <span
                   style={{
                     display: 'inline-block',
-                    fontSize: '0.72rem',
+                    fontSize: '0.78rem',
                     fontWeight: 700,
-                    letterSpacing: '0.08em',
+                    letterSpacing: '0.07em',
                     textTransform: 'uppercase',
                     color: '#7c3aed',
-                    background: 'rgba(168, 85, 247, 0.12)',
-                    border: '1px solid rgba(168, 85, 247, 0.25)',
-                    borderRadius: 999,
-                    padding: '0.28rem 0.75rem',
-                    marginBottom: '0.65rem',
+                    marginBottom: '0.55rem',
                   }}
                 >
                   ✨ Date Idea · {TREK_TIME_LABEL}

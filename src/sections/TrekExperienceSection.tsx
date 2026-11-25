@@ -39,16 +39,12 @@ export const TrekExperienceSection: React.FC<TrekExperienceSectionProps> = ({
           <span
             style={{
               display: 'inline-block',
-              fontSize: '0.75rem',
+              fontSize: '0.8rem',
               fontWeight: 700,
               letterSpacing: '0.06em',
               textTransform: 'uppercase',
               color: '#7c3aed',
-              background: 'rgba(168, 85, 247, 0.1)',
-              border: '1px solid rgba(168, 85, 247, 0.22)',
-              borderRadius: 999,
-              padding: '0.28rem 0.85rem',
-              marginBottom: '0.75rem',
+              marginBottom: '0.6rem',
             }}
           >
             📅 Locked in for {TREK_DATE_LABEL}
