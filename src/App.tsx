@@ -4,11 +4,13 @@ import { AnimatedBackground } from './components/AnimatedBackground';
 import { HeroSection } from './sections/HeroSection';
 import { AskSection } from './sections/AskSection';
 import { CelebrationSection } from './sections/CelebrationSection';
-import { DaySelectSection } from './sections/DaySelectSection';
+import { TrekExperienceSection } from './sections/TrekExperienceSection';
 import { FoodSection } from './sections/FoodSection';
+import { PostTrekFoodSection } from './sections/PostTrekFoodSection';
 import { SignOffSection } from './sections/SignOffSection';
 import { useSmootScroll, scrollToSection } from './hooks/useScrollSections';
 import { fireEvent, fireVisitEvent } from './lib/notifications';
+import { FOOD_OPTIONS } from './lib/stateTypes';
 import type { AppState, AppAction } from './lib/stateTypes';
 
 // ─── Reducer ──────────────────────────────────────────────────────────────────
@@ -16,8 +18,9 @@ import type { AppState, AppAction } from './lib/stateTypes';
 const initialState: AppState = {
   phase: 'ask',
   noCount: 0,
-  dayChoice: null,
+  trekExpChoice: null,
   foodChoice: null,
+  postFoodChoice: null,
 };
 
 function reducer(state: AppState, action: AppAction): AppState {
@@ -37,40 +40,36 @@ function reducer(state: AppState, action: AppAction): AppState {
     case 'CLICK_PIVOT_NO':
       if (state.phase !== 'pivot') return state;
       return { ...state, phase: 'no-final' };
-    case 'GO_TO_DAY_SELECT':
+    case 'GO_TO_TREK_EXP':
       if (state.phase !== 'yes') return state;
-      return { ...state, phase: 'day-select' };
-    case 'SELECT_DAY':
-      if (state.phase !== 'day-select') return state;
-      return { ...state, dayChoice: action.choice, phase: 'food' };
+      return { ...state, phase: 'trek-exp' };
+    case 'SELECT_TREK_EXP':
+      if (state.phase !== 'trek-exp') return state;
+      return { ...state, trekExpChoice: action.choice, phase: 'food' };
     case 'SELECT_FOOD':
       if (state.phase !== 'food') return state;
-      return { ...state, foodChoice: action.choice, phase: 'signoff' };
+      return { ...state, foodChoice: action.choice, phase: 'post-food' };
+    case 'SELECT_POST_FOOD':
+      if (!['post-food', 'signoff'].includes(state.phase)) return state;
+      return { ...state, postFoodChoice: action.choice, phase: 'signoff' };
     default:
       return state;
   }
 }
-
-// ─── Food label lookup ────────────────────────────────────────────────────────
-const FOOD_LABELS: Record<string, string> = {
-  pbj: 'PB & Jam Sandwich',
-  mayo: 'Mayo & Veggie Sandwich',
-  maggi: 'Maggi + Hot Chocolate',
-  'trail-mix': 'Trail Mix & Chocolates',
-};
 
 // ─── App ──────────────────────────────────────────────────────────────────────
 
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const lenisRef = useSmootScroll();
-  const visitNotifiedRef  = useRef(false);
-  const answerNotifiedRef = useRef(false);
-  const dayNotifiedRef    = useRef(false);
-  const foodNotifiedRef   = useRef(false);
-  const allDoneNotifiedRef = useRef(false);
+  const visitNotifiedRef    = useRef(false);
+  const answerNotifiedRef   = useRef(false);
+  const trekExpNotifiedRef  = useRef(false);
+  const foodNotifiedRef     = useRef(false);
+  const lastPostFoodRef     = useRef<string | null>(null);
+  const allDoneNotifiedRef  = useRef(false);
 
-  const { phase, noCount, dayChoice, foodChoice } = state;
+  const { phase, noCount, trekExpChoice, foodChoice, postFoodChoice } = state;
 
   // ── Notify: page opened ──────────────────────────────────────────────────
   useEffect(() => {
@@ -82,11 +81,12 @@ function App() {
   // ── Scroll on phase change ───────────────────────────────────────────────
   useEffect(() => {
     const targets: Record<string, string> = {
-      'yes':        'section-celebration',
-      'day-select': 'section-day-select',
-      'food':       'section-food',
-      'no-final':   'section-signoff',
-      'signoff':    'section-signoff',
+      'yes':       'section-celebration',
+      'trek-exp':  'section-trek-exp',
+      'food':      'section-food',
+      'post-food': 'section-post-food',
+      'no-final':  'section-signoff',
+      'signoff':   'section-signoff',
     };
     const target = targets[phase];
     if (target) {
@@ -106,43 +106,60 @@ function App() {
     }
   }, [phase, noCount]);
 
-  // ── Notify: day choice ───────────────────────────────────────────────────
+  // ── Notify: trek experience ──────────────────────────────────────────────
   useEffect(() => {
-    if (dayNotifiedRef.current || !dayChoice) return;
-    dayNotifiedRef.current = true;
-    fireEvent({ answer: 'day-choice', noCount, dayChoice });
-  }, [dayChoice, noCount]);
+    if (trekExpNotifiedRef.current || !trekExpChoice) return;
+    trekExpNotifiedRef.current = true;
+    fireEvent({ answer: 'trek-exp', noCount, trekExpChoice });
+  }, [trekExpChoice, noCount]);
 
-  // ── Notify: food choice + all-done summary ──────────────────────────────
+  // ── Notify: trek snack choice ────────────────────────────────────────────
   useEffect(() => {
     if (foodNotifiedRef.current || !foodChoice) return;
     foodNotifiedRef.current = true;
-    const foodLabel = FOOD_LABELS[foodChoice] ?? foodChoice;
+    const foodLabel = FOOD_OPTIONS.find(f => f.id === foodChoice)?.label ?? foodChoice;
     fireEvent({ answer: 'food-choice', noCount, foodChoice: foodLabel });
+  }, [foodChoice, noCount]);
 
-    // Fire the combined "all-done" summary a moment later
-    if (!allDoneNotifiedRef.current && dayChoice) {
+  // ── Notify: post-trek food + all-done summary ────────────────────────────
+  useEffect(() => {
+    if (!postFoodChoice || lastPostFoodRef.current === postFoodChoice) return;
+    lastPostFoodRef.current = postFoodChoice;
+    const foodLabel = foodChoice
+      ? (FOOD_OPTIONS.find(f => f.id === foodChoice)?.label ?? foodChoice)
+      : undefined;
+
+    fireEvent({
+      answer: 'post-food-choice',
+      noCount,
+      postFoodChoice,
+    });
+
+    if (!allDoneNotifiedRef.current && trekExpChoice && foodLabel) {
       allDoneNotifiedRef.current = true;
       setTimeout(() => {
         fireEvent({
           answer: 'all-done',
           noCount,
-          dayChoice,
+          trekExpChoice,
           foodChoice: foodLabel,
+          postFoodChoice,
         });
       }, 1500);
     }
-  }, [foodChoice, noCount, dayChoice]);
+  }, [postFoodChoice, noCount, trekExpChoice, foodChoice]);
 
   // ── Section visibility ───────────────────────────────────────────────────
   const showAsk         = phase === 'ask' || phase === 'pivot';
-  const showCelebration = ['yes', 'day-select', 'food', 'signoff'].includes(phase);
-  const showDaySelect   = ['day-select', 'food', 'signoff'].includes(phase);
-  const showFood        = ['food', 'signoff'].includes(phase);
+  const showCelebration = ['yes', 'trek-exp', 'food', 'post-food', 'signoff'].includes(phase);
+  const showTrekExp     = ['trek-exp', 'food', 'post-food', 'signoff'].includes(phase);
+  const showFood        = ['food', 'post-food', 'signoff'].includes(phase);
+  const showPostFood    = ['post-food', 'signoff'].includes(phase);
   const showSignoff     = phase === 'signoff' || phase === 'no-final';
 
-  // Resolve food label for sign-off display
-  const foodLabel = foodChoice ? (FOOD_LABELS[foodChoice] ?? foodChoice) : null;
+  const foodLabel = foodChoice
+    ? (FOOD_OPTIONS.find(f => f.id === foodChoice)?.label ?? foodChoice)
+    : null;
 
   return (
     <div style={{ position: 'relative', minHeight: '100dvh' }}>
@@ -181,32 +198,32 @@ function App() {
             >
               <CelebrationSection
                 active={showCelebration}
-                onContinue={() => dispatch({ type: 'GO_TO_DAY_SELECT' })}
+                onContinue={() => dispatch({ type: 'GO_TO_TREK_EXP' })}
               />
             </motion.div>
           )}
         </AnimatePresence>
 
-        {/* ── Day Selection ────────────────────────────────────────── */}
+        {/* ── Trek Experience ──────────────────────────────────────── */}
         <AnimatePresence>
-          {showDaySelect && (
+          {showTrekExp && (
             <motion.div
-              key="day-select"
+              key="trek-exp"
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.1 }}
             >
-              <DaySelectSection
-                dayChoice={dayChoice}
-                onSelect={(fullLabel) => {
-                  dispatch({ type: 'SELECT_DAY', choice: fullLabel });
+              <TrekExperienceSection
+                trekExpChoice={trekExpChoice}
+                onSelect={(label) => {
+                  dispatch({ type: 'SELECT_TREK_EXP', choice: label });
                 }}
               />
             </motion.div>
           )}
         </AnimatePresence>
 
-        {/* ── Food ─────────────────────────────────────────────────── */}
+        {/* ── Trek Snacks ──────────────────────────────────────────── */}
         <AnimatePresence>
           {showFood && (
             <motion.div
@@ -225,6 +242,25 @@ function App() {
           )}
         </AnimatePresence>
 
+        {/* ── Post-Trek Food ───────────────────────────────────────── */}
+        <AnimatePresence>
+          {showPostFood && (
+            <motion.div
+              key="post-food"
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.1 }}
+            >
+              <PostTrekFoodSection
+                postFoodChoice={postFoodChoice}
+                onSubmit={(choice) => {
+                  dispatch({ type: 'SELECT_POST_FOOD', choice });
+                }}
+              />
+            </motion.div>
+          )}
+        </AnimatePresence>
+
         {/* ── Sign-off ─────────────────────────────────────────────── */}
         <AnimatePresence>
           {showSignoff && (
@@ -236,8 +272,9 @@ function App() {
             >
               <SignOffSection
                 phase={phase}
-                dayChoice={dayChoice}
+                trekExpChoice={trekExpChoice}
                 foodChoice={foodLabel}
+                postFoodChoice={postFoodChoice}
               />
             </motion.div>
           )}

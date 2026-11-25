@@ -1,22 +1,22 @@
 import { motion } from 'framer-motion';
 import { CatCharacter } from '../components/CatCharacter';
+import { TREK_DATE_LABEL, TREK_LOCATION } from '../lib/stateTypes';
 import type { Phase } from '../lib/stateTypes';
 
 interface SignOffSectionProps {
   phase: Phase;
-  dayChoice: string | null;
+  trekExpChoice: string | null;
   foodChoice: string | null;
+  postFoodChoice: string | null;
 }
 
 export const SignOffSection: React.FC<SignOffSectionProps> = ({
   phase,
-  dayChoice,
+  trekExpChoice,
   foodChoice,
+  postFoodChoice,
 }) => {
   const isNoFinal = phase === 'no-final';
-
-  // Extract just the day name (e.g. "Thursday" from "Thursday, Aug 14")
-  const dayName = dayChoice?.split(',')[0] ?? 'the trek';
 
   return (
     <section
@@ -27,8 +27,8 @@ export const SignOffSection: React.FC<SignOffSectionProps> = ({
       <div style={{ textAlign: 'center', maxWidth: 480, width: '100%' }}>
 
         {/* Cat */}
-        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1rem' }}>
-          <CatCharacter mood={isNoFinal ? 'content' : 'happy'} size={240} />
+        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '0.85rem' }}>
+          <CatCharacter mood={isNoFinal ? 'content' : 'happy'} size={245} />
         </div>
 
         {isNoFinal ? (
@@ -60,7 +60,7 @@ export const SignOffSection: React.FC<SignOffSectionProps> = ({
                 marginBottom: '2rem',
               }}
             >
-              Thanks for humoring me. The offer stands whenever you're up for it — no pressure, ever. 💜
+              Thanks for humoring me. The offer stands whenever you&apos;re up for it — no pressure, ever. 💜
             </motion.p>
           </>
         ) : (
@@ -72,14 +72,14 @@ export const SignOffSection: React.FC<SignOffSectionProps> = ({
               transition={{ duration: 0.7 }}
               className="gradient-text"
               style={{
-                fontSize: 'clamp(1.6rem, 7vw, 2.6rem)',
+                fontSize: 'clamp(1.6rem, 7vw, 2.5rem)',
                 fontWeight: 900,
-                lineHeight: 1.1,
+                lineHeight: 1.12,
                 letterSpacing: '-0.02em',
                 marginBottom: '1rem',
               }}
             >
-              See you on {dayName} ✨
+              See you on {TREK_DATE_LABEL} ✨
             </motion.h2>
 
             <motion.div
@@ -105,7 +105,7 @@ export const SignOffSection: React.FC<SignOffSectionProps> = ({
               <p style={{ fontWeight: 600, color: '#4a2d7a' }}>
                 Thank you for saying yes.
                 <br />
-                My heart hasn't stopped smiling since. 💗
+                My heart hasn&apos;t stopped smiling since. 💗
               </p>
             </motion.div>
 
@@ -121,7 +121,7 @@ export const SignOffSection: React.FC<SignOffSectionProps> = ({
                 WebkitBackdropFilter: 'blur(16px)',
                 border: '1.5px solid rgba(255,255,255,0.45)',
                 borderRadius: 22,
-                padding: '1.1rem 1.4rem',
+                padding: '1.15rem 1.4rem',
                 boxShadow: '0 4px 18px rgba(120,80,200,0.12)',
                 marginBottom: '1.5rem',
               }}
@@ -129,13 +129,19 @@ export const SignOffSection: React.FC<SignOffSectionProps> = ({
               <p style={{
                 fontSize: 'clamp(0.85rem, 3vw, 0.95rem)',
                 color: '#5a4a7a',
-                lineHeight: 1.6,
+                lineHeight: 1.7,
               }}>
-                📅 <strong>{dayChoice}</strong>
-                {foodChoice && (
-                  <><br />🍱 <strong>{foodChoice}</strong> packed</>
+                📅 <strong>{TREK_DATE_LABEL} · Morning</strong>
+                <br />📍 {TREK_LOCATION}
+                {trekExpChoice && (
+                  <><br />🥾 <strong>{trekExpChoice}</strong></>
                 )}
-                <br />📍 Twin Towers, Galta Ji
+                {foodChoice && (
+                  <><br />🍱 <strong>{foodChoice}</strong> packed for the trail</>
+                )}
+                {postFoodChoice && (
+                  <><br />🍽️ <strong>{postFoodChoice}</strong> after the trek</>
+                )}
                 <br /><br />
                 <span style={{ color: '#7c3aed', fontWeight: 600 }}>
                   All I need now is you. 🐾

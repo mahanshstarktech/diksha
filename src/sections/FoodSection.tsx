@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { CatCharacter } from '../components/CatCharacter';
 import { FoodOptionCard } from '../components/FoodOptionCard';
 import { FOOD_OPTIONS } from '../lib/stateTypes';
 
@@ -12,10 +13,9 @@ export const FoodSection: React.FC<FoodSectionProps> = ({ foodChoice, onSelect }
   const [showCustom, setShowCustom] = useState(false);
   const [customText, setCustomText] = useState('');
 
-  const selectedLabel =
-    foodChoice === 'custom'
-      ? customText
-      : FOOD_OPTIONS.find(f => f.id === foodChoice)?.label ?? null;
+  const selectedLabel = foodChoice
+    ? (FOOD_OPTIONS.find(f => f.id === foodChoice)?.label ?? foodChoice)
+    : null;
 
   const handleCustomSubmit = () => {
     if (customText.trim()) {
@@ -31,6 +31,11 @@ export const FoodSection: React.FC<FoodSectionProps> = ({ foodChoice, onSelect }
     >
       <div style={{ width: '100%', maxWidth: 560, textAlign: 'center' }}>
 
+        {/* Hungry / excited cat */}
+        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '0.6rem' }}>
+          <CatCharacter mood={foodChoice ? 'happy' : 'hungry'} size={200} />
+        </div>
+
         {/* Heading */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -39,7 +44,6 @@ export const FoodSection: React.FC<FoodSectionProps> = ({ foodChoice, onSelect }
           transition={{ duration: 0.7 }}
           style={{ marginBottom: '1.5rem' }}
         >
-          <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>🍱</div>
           <h2 style={{
             fontSize: 'clamp(1.2rem, 5vw, 1.65rem)',
             fontWeight: 800,
@@ -48,14 +52,14 @@ export const FoodSection: React.FC<FoodSectionProps> = ({ foodChoice, onSelect }
             letterSpacing: '-0.015em',
             marginBottom: '0.4rem',
           }}>
-            What should I pack for us?
+            What should I pack for the trail? 🎒
           </h2>
           <p style={{
             fontSize: 'clamp(0.85rem, 3.5vw, 1rem)',
             color: '#6b5b8a',
             lineHeight: 1.5,
           }}>
-            Pick one, or tell me what you'd like 🎒
+            Pick a snack for the top, or tell me your favourite ✨
           </p>
         </motion.div>
 

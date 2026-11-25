@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { CatCharacter } from '../components/CatCharacter';
 import { PawButton } from '../components/PawButton';
 import { GlassCard } from '../components/GlassCard';
-import { ASK_STAGES } from '../lib/stateTypes';
+import { ASK_STAGES, TREK_LOCATION, TREK_TIME_LABEL } from '../lib/stateTypes';
 import type { AppState } from '../lib/stateTypes';
 
 interface AskSectionProps {
@@ -29,10 +29,10 @@ export const AskSection: React.FC<AskSectionProps> = ({
   const isPivot = phase === 'pivot';
 
   const questionText = isPivot
-    ? "Okay okay, I'll stop bugging you about today 😅 But for real — would you want to go on a trek together sometime, whenever works for you?"
+    ? "Okay okay, I'll stop bugging you about this Sunday 😅 But for real — would you want to go on a trek together sometime?"
     : stage.question;
 
-  const catMood = isPivot ? 'content' : stage.mood;
+  const catMood = isPivot ? 'curious' : stage.mood;
   const noScale = isPivot ? 1.0 : stage.noScale;
   const yesScale = isPivot ? 1.0 : stage.yesScale;
 
@@ -42,9 +42,9 @@ export const AskSection: React.FC<AskSectionProps> = ({
       className="section-full"
       style={{ zIndex: 1, paddingTop: '2rem', paddingBottom: '3rem' }}
     >
-      <div style={{ width: '100%', maxWidth: 560, display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+      <div style={{ width: '100%', maxWidth: 560, display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
 
-        {/* Trek info card */}
+        {/* Date idea + trek info card */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -52,28 +52,67 @@ export const AskSection: React.FC<AskSectionProps> = ({
           transition={{ duration: 0.7 }}
         >
           <GlassCard>
-            <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem' }}>
-              <span style={{ fontSize: '2.2rem', flexShrink: 0, marginTop: 2 }}>🏔️</span>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.9rem' }}>
               <div>
-                <h2 style={{
-                  fontSize: '1.25rem',
-                  fontWeight: 700,
-                  color: '#2d1a4a',
-                  marginBottom: '0.4rem',
-                  letterSpacing: '-0.01em',
-                }}>
-                  Twin Towers, Galta Ji
-                </h2>
-                <p style={{
-                  fontSize: '0.93rem',
-                  lineHeight: 1.65,
-                  color: '#5a4a7a',
-                }}>
-                  An easy-to-moderate trail through the Aravalli hills, starting from
-                  Galta Gate — right next to the Monkey Temple — about 10 km from central
-                  Jaipur. Panoramic views over the city, a half-day outing, best in cool
-                  mornings. ☀️🌿
+                <span
+                  style={{
+                    display: 'inline-block',
+                    fontSize: '0.72rem',
+                    fontWeight: 700,
+                    letterSpacing: '0.08em',
+                    textTransform: 'uppercase',
+                    color: '#7c3aed',
+                    background: 'rgba(168, 85, 247, 0.12)',
+                    border: '1px solid rgba(168, 85, 247, 0.25)',
+                    borderRadius: 999,
+                    padding: '0.28rem 0.75rem',
+                    marginBottom: '0.65rem',
+                  }}
+                >
+                  ✨ Date Idea · {TREK_TIME_LABEL}
+                </span>
+                <p
+                  style={{
+                    fontSize: '1.03rem',
+                    fontWeight: 600,
+                    lineHeight: 1.55,
+                    color: '#2d1a4a',
+                  }}
+                >
+                  My date idea for us: a quiet Sunday morning trek on Nov 29 — crisp air,
+                  easy trails, and the sunrise view together. 🌅
                 </p>
+              </div>
+
+              <div
+                style={{
+                  height: 1,
+                  background: 'rgba(168, 85, 247, 0.14)',
+                }}
+              />
+
+              <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.9rem' }}>
+                <span style={{ fontSize: '2rem', flexShrink: 0, marginTop: 2 }}>🏔️</span>
+                <div>
+                  <h2 style={{
+                    fontSize: '1.1rem',
+                    fontWeight: 700,
+                    color: '#2d1a4a',
+                    marginBottom: '0.3rem',
+                    letterSpacing: '-0.01em',
+                  }}>
+                    {TREK_LOCATION}
+                  </h2>
+                  <p style={{
+                    fontSize: '0.9rem',
+                    lineHeight: 1.6,
+                    color: '#5a4a7a',
+                  }}>
+                    An easy-to-moderate trail through the Aravalli hills starting from
+                    Galta Gate (near the Monkey Temple), about 10 km from central Jaipur.
+                    Panoramic city views, best in cool mornings. ☀️🌿
+                  </p>
+                </div>
               </div>
             </div>
           </GlassCard>
@@ -83,8 +122,8 @@ export const AskSection: React.FC<AskSectionProps> = ({
         <GlassCard id="ask-card" style={{ textAlign: 'center', padding: '2rem 1.75rem' }}>
 
           {/* Cat */}
-          <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1rem' }}>
-            <CatCharacter mood={catMood} size={220} />
+          <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '0.75rem' }}>
+            <CatCharacter mood={catMood} size={230} />
           </div>
 
           {/* Question text */}
@@ -96,7 +135,7 @@ export const AskSection: React.FC<AskSectionProps> = ({
               exit={{ opacity: 0, y: -12 }}
               transition={springText}
               style={{
-                fontSize: 'clamp(1rem, 4vw, 1.2rem)',
+                fontSize: 'clamp(1.02rem, 4vw, 1.22rem)',
                 fontWeight: 600,
                 color: '#2d1a4a',
                 lineHeight: 1.55,

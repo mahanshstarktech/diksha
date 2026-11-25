@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { CatCharacter } from '../components/CatCharacter';
 import { ConfettiEffect } from '../components/ConfettiEffect';
 import { ScrollHint } from '../components/ScrollHint';
+import { TREK_DATE_LABEL, TREK_LOCATION } from '../lib/stateTypes';
 
 interface CelebrationSectionProps {
   active: boolean;
@@ -23,8 +24,8 @@ export const CelebrationSection: React.FC<CelebrationSectionProps> = ({
       <div style={{ textAlign: 'center', maxWidth: 520, width: '100%', padding: '0 1rem' }}>
 
         {/* Dancing bongo cat */}
-        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1rem' }}>
-          <CatCharacter mood="dance" size={260} />
+        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '0.75rem' }}>
+          <CatCharacter mood="dance" size={265} />
         </div>
 
         {/* Celebration heading */}
@@ -55,7 +56,7 @@ export const CelebrationSection: React.FC<CelebrationSectionProps> = ({
             marginBottom: '0.5rem',
           }}
         >
-          It's a date then.
+          It&apos;s a date then — {TREK_DATE_LABEL} morning! 📅
         </motion.p>
 
         <motion.p
@@ -69,7 +70,7 @@ export const CelebrationSection: React.FC<CelebrationSectionProps> = ({
             marginBottom: '2rem',
           }}
         >
-          Twin Towers, Galta Ji — let's go make a memory. 🌄🐾
+          {TREK_LOCATION} — let&apos;s go make a memory. 🌄🐾
         </motion.p>
 
         {/* Continue button */}
@@ -97,7 +98,7 @@ export const CelebrationSection: React.FC<CelebrationSectionProps> = ({
           }}
           id="btn-continue-to-questions"
         >
-          Just a couple more things... 🐾
+          Just a couple quick questions... 🐾
         </motion.button>
 
         {/* Scroll hint */}
