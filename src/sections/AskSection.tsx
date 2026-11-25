@@ -65,7 +65,7 @@ export const AskSection: React.FC<AskSectionProps> = ({
                     marginBottom: '0.55rem',
                   }}
                 >
-                  ✨ Date Idea · {TREK_TIME_LABEL}
+                  Date Idea · {TREK_TIME_LABEL}
                 </span>
                 <p
                   style={{
@@ -105,7 +105,7 @@ export const AskSection: React.FC<AskSectionProps> = ({
                     color: '#5a4a7a',
                   }}>
                     I&apos;m keeping the trail spot a little surprise for now — just bring
-                    good energy and trust me on this one. 🐾✨
+                    good energy and trust me on this one. 🐾
                   </p>
                 </div>
               </div>

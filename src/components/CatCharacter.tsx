@@ -468,7 +468,7 @@ export const CatCharacter: React.FC<CatCharacterProps> = ({ mood, size = 220 }) 
                 animate={{ opacity: [0.3, 1, 0.3], y: [-6, 6, -6], rotate: [8, -8, 8] }}
                 transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut', delay: 0.3 }}
               >
-                ✨
+                💗
               </motion.text>
             </>
           )}
@@ -497,7 +497,7 @@ export const CatCharacter: React.FC<CatCharacterProps> = ({ mood, size = 220 }) 
               animate={{ opacity: [0.35, 1, 0.35], scale: [0.85, 1.2, 0.85] }}
               transition={{ duration: 1.4, repeat: Infinity, ease: 'easeInOut' }}
             >
-              ✨
+              🐾
             </motion.text>
           )}
         </AnimatePresence>

@@ -99,11 +99,11 @@ export const TREK_EXP_OPTIONS = [
     id: 'few-times',
     emoji: '🌿',
     label: 'Once or twice, a little bit',
-    reply: "Perfect — this trail is super scenic and easygoing ✨",
+    reply: "Perfect — this trail is super scenic and easygoing 🐾",
   },
   {
     id: 'first-time',
-    emoji: '✨',
+    emoji: '🌱',
     label: 'Nope, this will be my first!',
     reply: "Even better — I'll make sure your first trek is unforgettable 💗🐾",
   },

@@ -75,7 +75,7 @@ export const SignOffSection: React.FC<SignOffSectionProps> = ({
                 marginBottom: '1rem',
               }}
             >
-              See you on {TREK_DATE_LABEL} ✨
+              See you on {TREK_DATE_LABEL}
             </motion.h2>
 
             <motion.div

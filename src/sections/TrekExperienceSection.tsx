@@ -64,7 +64,7 @@ export const TrekExperienceSection: React.FC<TrekExperienceSectionProps> = ({
             color: '#6b5b8a',
             lineHeight: 1.5,
           }}>
-            Just so I know how to plan our pace ✨
+            Just so I know how to plan our pace
           </p>
         </motion.div>
 
