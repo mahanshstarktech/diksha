@@ -57,7 +57,7 @@ export const CelebrationSection: React.FC<CelebrationSectionProps> = ({
             marginBottom: '0.5rem',
           }}
         >
-          It&apos;s a date then — {TREK_DATE_LABEL} morning! 📅
+          It&apos;s a date then — {TREK_DATE_LABEL} morning!
         </motion.p>
 
         <motion.p

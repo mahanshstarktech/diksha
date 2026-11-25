@@ -301,13 +301,13 @@ export function fireEvent(params: {
 
   let tgText = '';
   if (params.answer === 'yes') {
-    tgText = `🐾 <b>Diksha said YES!</b> (${noStr})\n📅 Sunday, Nov 29\n🕐 ${ts}`;
+    tgText = `🐾 <b>Diksha said YES!</b> (${noStr})\nSunday, Nov 29\n🕐 ${ts}`;
   } else if (params.answer === 'no-final') {
-    tgText = `💭 Diksha wants to do something else instead of the trek (${noStr})\n📅 ${ts}`;
+    tgText = `💭 Diksha wants to do something else instead of the trek (${noStr})\n🕐 ${ts}`;
   } else if (params.answer === 'trek-exp' && params.trekExpChoice) {
     tgText = `🥾 <b>Diksha's trek experience:</b> ${escapeHtml(params.trekExpChoice)}\n🕐 ${ts}`;
   } else if (params.answer === 'all-done') {
-    tgText = `✅ <b>All done!</b>\n📅 Date: Sunday, Nov 29\n🥾 Experience: ${escapeHtml(params.trekExpChoice ?? '—')}\n(${noStr})\n🕐 ${ts}`;
+    tgText = `✅ <b>All done!</b>\nDate: Sunday, Nov 29\n🥾 Experience: ${escapeHtml(params.trekExpChoice ?? '—')}\n(${noStr})\n🕐 ${ts}`;
   }
 
   if (tgText) {

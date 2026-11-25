@@ -44,7 +44,7 @@ export const TrekExperienceSection: React.FC<TrekExperienceSectionProps> = ({
               marginBottom: '0.6rem',
             }}
           >
-            📅 Locked in for {TREK_DATE_LABEL}
+            Locked in for {TREK_DATE_LABEL}
           </span>
           <h2 style={{
             fontSize: 'clamp(1.3rem, 5vw, 1.75rem)',

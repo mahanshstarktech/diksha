@@ -125,7 +125,7 @@ export const SignOffSection: React.FC<SignOffSectionProps> = ({
                 color: '#5a4a7a',
                 lineHeight: 1.7,
               }}>
-                📅 <strong>{TREK_DATE_LABEL} · Morning</strong>
+                <strong>{TREK_DATE_LABEL} · Morning</strong>
                 <br />📍 {TREK_LOCATION} <SecretCatIcon size={18} />
                 {trekExpChoice && (
                   <><br />🥾 <strong>{trekExpChoice}</strong></>
