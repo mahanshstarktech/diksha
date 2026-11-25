@@ -70,7 +70,7 @@ export const CelebrationSection: React.FC<CelebrationSectionProps> = ({
             marginBottom: '2rem',
           }}
         >
-          The destination&apos;s a little secret for now — let&apos;s go make a memory. 🐱🤫
+          The destination&apos;s a little secret for now — let&apos;s give the future something to look back on. 🐱🤫
         </motion.p>
 
         {/* Continue button */}

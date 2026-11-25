@@ -90,11 +90,8 @@ export const SignOffSection: React.FC<SignOffSectionProps> = ({
                 marginBottom: '1.5rem',
               }}
             >
-              <p style={{ marginBottom: '0.7rem' }}>
-                Why explain the light?
-              </p>
-              <p style={{ marginBottom: '0.7rem' }}>
-                It simply falls.
+              <p style={{ marginBottom: '0.85rem' }}>
+                If I were a poet, you&apos;d be the reason I&apos;d never run out of words.
               </p>
               <p style={{ fontWeight: 600, color: '#4a2d7a' }}>
                 Thank you for saying yes.
