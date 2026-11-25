@@ -104,7 +104,7 @@ export const CelebrationSection: React.FC<CelebrationSectionProps> = ({
         </motion.button>
 
         {/* Scroll hint */}
-        <ScrollHint />
+        <ScrollHint onClick={onContinue} label="Continue to next question" />
       </div>
     </section>
   );

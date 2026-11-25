@@ -11,6 +11,11 @@ export function useSmootScroll() {
   const settleTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' as ScrollBehavior });
+
     const captureStart = () => {
       startScrollYRef.current = window.scrollY;
       if (window.scrollY < 40) {

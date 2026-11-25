@@ -139,9 +139,6 @@ export const TrekExperienceSection: React.FC<TrekExperienceSectionProps> = ({
           })}
         </div>
 
-        {/* Scroll hint before choice */}
-        {!trekExpChoice && <ScrollHint />}
-
         {/* Confirmation message */}
         <AnimatePresence>
           {matchedOption && (
@@ -165,6 +162,19 @@ export const TrekExperienceSection: React.FC<TrekExperienceSectionProps> = ({
             </motion.div>
           )}
         </AnimatePresence>
+
+        {/* Hovering down arrow — jumps to options before choice, or to sign-off after choice */}
+        <ScrollHint
+          delay={0.35}
+          label={trekExpChoice ? 'Scroll to final message' : 'Choose an option'}
+          onClick={() => {
+            const targetId = trekExpChoice ? 'section-signoff' : 'trek-exp-experienced';
+            document.getElementById(targetId)?.scrollIntoView({
+              behavior: 'smooth',
+              block: trekExpChoice ? 'start' : 'center',
+            });
+          }}
+        />
       </div>
     </section>
   );
