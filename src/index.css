@@ -52,12 +52,37 @@
 
 html {
   font-family: var(--font-sans);
+  font-size: 16px;
   color: var(--color-ink);
   scroll-behavior: smooth;
   scroll-snap-type: y proximity;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: clip;
+}
+
+@media (max-width: 380px) {
+  html {
+    font-size: 15px;
+  }
+}
+
+@media (min-width: 1440px) {
+  html {
+    font-size: 17px;
+  }
+}
+
+@media (min-width: 2200px) {
+  html {
+    font-size: 21px;
+  }
+}
+
+@media (min-width: 3200px) {
+  html {
+    font-size: 26px;
+  }
 }
 
 body {

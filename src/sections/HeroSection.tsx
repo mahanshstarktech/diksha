@@ -13,7 +13,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onScrollHintClick }) =
       className="section-full"
       style={{ zIndex: 1 }}
     >
-      <div style={{ textAlign: 'center', maxWidth: 560, width: '100%' }}>
+      <div style={{ textAlign: 'center', maxWidth: '35rem', width: '100%' }}>
         {/* Small paw icon above headline */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}

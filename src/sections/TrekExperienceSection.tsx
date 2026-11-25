@@ -18,7 +18,7 @@ export const TrekExperienceSection: React.FC<TrekExperienceSectionProps> = ({
       className="section-full"
       style={{ zIndex: 1, padding: '2rem 1rem' }}
     >
-      <div style={{ width: '100%', maxWidth: 560, textAlign: 'center' }}>
+      <div style={{ width: '100%', maxWidth: '34rem', textAlign: 'center' }}>
 
         {/* Curious cat */}
         <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '0.5rem' }}>

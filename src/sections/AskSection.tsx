@@ -4,7 +4,7 @@ import { CatCharacter } from '../components/CatCharacter';
 import { PawButton } from '../components/PawButton';
 import { GlassCard } from '../components/GlassCard';
 import { SecretCatIcon } from '../components/SecretCatIcon';
-import { ASK_STAGES, TREK_TIME_LABEL } from '../lib/stateTypes';
+import { ASK_STAGES } from '../lib/stateTypes';
 import type { AppState } from '../lib/stateTypes';
 
 interface AskSectionProps {
@@ -41,9 +41,9 @@ export const AskSection: React.FC<AskSectionProps> = ({
     <section
       id="section-ask"
       className="section-full"
-      style={{ zIndex: 1, paddingTop: '1.75rem', paddingBottom: '2rem' }}
+      style={{ zIndex: 1, paddingTop: '1.5rem', paddingBottom: '2rem' }}
     >
-      <div style={{ width: '100%', maxWidth: 540, display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+      <div style={{ width: '100%', maxWidth: '34rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
 
         {/* Date idea + secret location card */}
         <motion.div
@@ -52,13 +52,13 @@ export const AskSection: React.FC<AskSectionProps> = ({
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <GlassCard style={{ padding: '1.25rem 1.35rem' }}>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
+          <GlassCard style={{ padding: 'clamp(1.1rem, 3.5vw, 1.5rem) clamp(1.15rem, 4vw, 1.6rem)' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
               <div>
                 <span
                   style={{
-                    display: 'inline-block',
-                    fontSize: '0.75rem',
+                    display: 'block',
+                    fontSize: 'clamp(0.68rem, 2.5vw, 0.78rem)',
                     fontWeight: 700,
                     letterSpacing: '0.07em',
                     textTransform: 'uppercase',
@@ -66,18 +66,18 @@ export const AskSection: React.FC<AskSectionProps> = ({
                     marginBottom: '0.45rem',
                   }}
                 >
-                  Date Idea · {TREK_TIME_LABEL}
+                  Date Idea · Sunday, <span style={{ whiteSpace: 'nowrap' }}>Nov 29</span>
                 </span>
                 <p
                   style={{
-                    fontSize: '0.98rem',
+                    fontSize: 'clamp(0.95rem, 3.4vw, 1.06rem)',
                     fontWeight: 600,
-                    lineHeight: 1.5,
+                    lineHeight: 1.55,
                     color: '#2d1a4a',
+                    textWrap: 'pretty',
                   }}
                 >
-                  My date idea for us: a quiet Sunday morning trek on Nov 29 — crisp air,
-                  easy trails, and the sunrise view together. 🌅
+                  A quiet morning trek together — crisp air, easy trails, and the sunrise view. 🌅
                 </p>
               </div>
 
@@ -88,49 +88,47 @@ export const AskSection: React.FC<AskSectionProps> = ({
                 }}
               />
 
-              <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.85rem' }}>
-                <div
-                  style={{
-                    width: 42,
-                    height: 42,
-                    borderRadius: 13,
-                    background: 'rgba(168, 85, 247, 0.1)',
-                    border: '1px solid rgba(168, 85, 247, 0.2)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    flexShrink: 0,
-                    marginTop: 2,
-                  }}
-                >
-                  <SecretCatIcon size={28} />
-                </div>
-                <div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+                  <div
+                    style={{
+                      width: 34,
+                      height: 34,
+                      borderRadius: 11,
+                      background: 'rgba(168, 85, 247, 0.1)',
+                      border: '1px solid rgba(168, 85, 247, 0.2)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      flexShrink: 0,
+                    }}
+                  >
+                    <SecretCatIcon size={22} />
+                  </div>
                   <h2 style={{
-                    fontSize: '1.05rem',
+                    fontSize: 'clamp(0.98rem, 3.6vw, 1.08rem)',
                     fontWeight: 700,
                     color: '#2d1a4a',
-                    marginBottom: '0.25rem',
                     letterSpacing: '-0.01em',
                   }}>
                     Where? That&apos;s a secret
                   </h2>
-                  <p style={{
-                    fontSize: '0.88rem',
-                    lineHeight: 1.55,
-                    color: '#5a4a7a',
-                  }}>
-                    I&apos;m keeping the trail spot a little surprise for now — just bring
-                    good energy and trust me on this one. 🐾
-                  </p>
                 </div>
+                <p style={{
+                  fontSize: 'clamp(0.86rem, 3.1vw, 0.94rem)',
+                  lineHeight: 1.58,
+                  color: '#5a4a7a',
+                  textWrap: 'pretty',
+                }}>
+                  Keeping the trail spot a surprise for now — just bring good energy and trust me on this one. 🐾
+                </p>
               </div>
             </div>
           </GlassCard>
         </motion.div>
 
         {/* Main interaction card */}
-        <GlassCard id="ask-card" style={{ textAlign: 'center', padding: '1.5rem 1.35rem' }}>
+        <GlassCard id="ask-card" style={{ textAlign: 'center', padding: 'clamp(1.35rem, 4vw, 1.75rem) clamp(1.15rem, 4vw, 1.5rem)' }}>
 
           {/* Cat */}
           <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '0.5rem' }}>
@@ -146,12 +144,13 @@ export const AskSection: React.FC<AskSectionProps> = ({
               exit={{ opacity: 0, y: -12 }}
               transition={springText}
               style={{
-                fontSize: 'clamp(1rem, 4vw, 1.18rem)',
+                fontSize: 'clamp(1rem, 3.8vw, 1.18rem)',
                 fontWeight: 600,
                 color: '#2d1a4a',
                 lineHeight: 1.5,
                 marginBottom: '1.25rem',
                 minHeight: '3rem',
+                textWrap: 'balance',
               }}
             >
               {questionText}

@@ -387,7 +387,7 @@ export const CatCharacter: React.FC<CatCharacterProps> = ({ mood, size = 220 }) 
 
   return (
     <motion.div
-      style={{ width: size, height, position: 'relative' }}
+      style={{ width: `${size / 16}rem`, height: `${height / 16}rem`, position: 'relative' }}
       animate={
         prefersReduced
           ? {}

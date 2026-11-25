@@ -22,7 +22,7 @@ export const CelebrationSection: React.FC<CelebrationSectionProps> = ({
     >
       <ConfettiEffect active={active} />
 
-      <div style={{ textAlign: 'center', maxWidth: 520, width: '100%', padding: '0 1rem' }}>
+      <div style={{ textAlign: 'center', maxWidth: '33rem', width: '100%', padding: '0 0.75rem' }}>
 
         {/* Dancing cat */}
         <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '0.5rem' }}>

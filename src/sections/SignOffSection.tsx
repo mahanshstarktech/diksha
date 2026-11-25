@@ -21,7 +21,7 @@ export const SignOffSection: React.FC<SignOffSectionProps> = ({
       className="section-full"
       style={{ zIndex: 1, padding: '2.5rem 1rem 4rem' }}
     >
-      <div style={{ textAlign: 'center', maxWidth: 480, width: '100%' }}>
+      <div style={{ textAlign: 'center', maxWidth: '31rem', width: '100%' }}>
 
         {/* Cat */}
         <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '0.6rem' }}>

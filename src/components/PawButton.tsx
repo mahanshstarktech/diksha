@@ -120,10 +120,13 @@ export const PawButton: React.FC<PawButtonProps> = ({
       >
         <svg
           viewBox="0 0 200 158"
-          width={renderWidth}
-          height={renderHeight}
           xmlns="http://www.w3.org/2000/svg"
-          style={{ display: 'block', filter: `drop-shadow(${v.shadow})` }}
+          style={{
+            display: 'block',
+            width: `${renderWidth / 16}rem`,
+            height: `${renderHeight / 16}rem`,
+            filter: `drop-shadow(${v.shadow})`,
+          }}
         >
           <defs>
             <linearGradient id={`paw-outer-${uid}`} x1="0%" y1="0%" x2="0%" y2="100%">

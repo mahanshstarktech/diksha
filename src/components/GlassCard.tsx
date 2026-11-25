@@ -8,7 +8,7 @@ interface GlassCardProps {
 }
 
 /**
- * Reusable frosted glass card wrapper.
+ * Reusable frosted glass card wrapper with fluid responsive padding and width.
  */
 export const GlassCard: React.FC<GlassCardProps> = ({
   children,
@@ -21,9 +21,9 @@ export const GlassCard: React.FC<GlassCardProps> = ({
       id={id}
       className={`glass-card ${className}`}
       style={{
-        padding: '2rem 2.25rem',
+        padding: 'clamp(1.15rem, 3.6vw, 1.85rem) clamp(1.15rem, 4vw, 2rem)',
         width: '100%',
-        maxWidth: 520,
+        maxWidth: '34rem',
         ...style,
       }}
     >
