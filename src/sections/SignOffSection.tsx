@@ -76,7 +76,9 @@ export const SignOffSection: React.FC<SignOffSectionProps> = ({
                 marginBottom: '1rem',
               }}
             >
-              See you on {TREK_DATE_LABEL}
+              See you on Sunday
+              <br />
+              <span style={{ whiteSpace: 'nowrap' }}>Nov 29</span>
             </motion.h2>
 
             <motion.div

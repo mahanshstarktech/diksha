@@ -42,7 +42,7 @@ export const AskSection: React.FC<AskSectionProps> = ({
     <section
       id="section-ask"
       className="section-full"
-      style={{ zIndex: 1, justifyContent: 'flex-start', paddingTop: '1.75rem', paddingBottom: '2.5rem' }}
+      style={{ zIndex: 1, paddingTop: '1.75rem', paddingBottom: '2rem' }}
     >
       <div style={{ width: '100%', maxWidth: 540, display: 'flex', flexDirection: 'column', gap: '1rem' }}>
 
@@ -130,15 +130,13 @@ export const AskSection: React.FC<AskSectionProps> = ({
           </GlassCard>
 
           {/* Hovering down arrow right after Date Idea card */}
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <ScrollHint
-              delay={0.4}
-              label="Scroll to question"
-              onClick={() => {
-                document.getElementById('ask-card')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-              }}
-            />
-          </div>
+          <ScrollHint
+            delay={0.4}
+            label="Scroll to question"
+            onClick={() => {
+              document.getElementById('ask-card')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }}
+          />
         </motion.div>
 
         {/* Main interaction card */}
